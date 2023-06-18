@@ -7,6 +7,13 @@
         // $datetime_1 = date('Y-m-d h:i:s'); 
         $sel = "SELECT * FROM notify WHERE `uid`=$uid and usrad=1 and drvad=1 and uend=0; ";
         $res=mysqli_query($conn, $sel);
+        $z1="SELECT did, tripid FROM notify WHERE uid=$uid AND usrad=1 and drvad=1 and uend=0 and dend=0;";
+        $y1=mysqli_query($conn, $z1);
+        $x1=$y1->fetch_assoc();
+        $otripid=$x1['tripid'];
+        $odid=$x1['did'];
+        $sel1 = "SELECT `uid` FROM notify WHERE tripid=$otripid AND did=$odid AND `uid`!=$uid AND dend=0 AND uend=0;";
+        $res1=mysqli_query($conn, $sel1);
         $_SESSION['uid']=$uid;
     } else {
         header('location:../index.php');
@@ -99,6 +106,42 @@
             </td>
         </tr>
         <?php $i++; };  ?>
+    </tbody>
+    </table>
+    <h3 style="text-align: center;">Other Passengers</h3>
+    <table class="table">
+    <thead class="table-dark">
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Trip Source</th>
+        <th scope="col">Trip Destination</th>
+        <th scope="col">Name</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php 
+            $i=1; while($row=$res1->fetch_object()) { 
+            $ouid=$row->uid;
+            echo $ouid;
+            $a2="SELECT uname, uphone, ugender FROM user WHERE `uid`=$ouid;";
+            $b2=mysqli_query($conn, $a2);
+            $c2=$b2->fetch_assoc();
+            $ogender=$c2['ugender'];
+            $ophone=$c2['uphone'];
+            $oname=$c2['uname'];
+            // if($date > $datetime_1) {
+            ?>
+        <tr>
+            <th scope="row"><?php echo $i; ?></th>
+            <td><?php echo $src; ?></td>
+            <td><?php echo $dest; ?></td>
+            <td><?php echo $oname; ?></td>
+            <td><?php echo $ogender; ?></td>
+            <td><?php echo $ophone; ?></td>
+        </tr>
+        <?php  } ?>
     </tbody>
     </table>
   </div>
