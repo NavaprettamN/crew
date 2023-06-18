@@ -69,6 +69,7 @@
         <th scope="col">Km</th>
         <th scope="col">Start Date</th>
         <th scope="col">Driver</th>
+        <th scope="col">Phone</th>
         <th scope="col">End Tour</th>
         </tr>
     </thead>
@@ -84,10 +85,11 @@
             $dest = $c1['dest'];
             $km = $c1['km'];
             $date = $row->strt;
-            $a2="SELECT dname FROM driver WHERE did=$did;";
+            $a2="SELECT dname,dphone FROM driver WHERE did=$did;";
             $b2=mysqli_query($conn,$a2);
             $c2=$b2->fetch_assoc();
             $dname=$c2['dname'];
+            $dphone=$c2['dphone'];
             // if($date > $datetime_1) {
             ?>
         <tr>
@@ -97,6 +99,7 @@
             <td><?php echo $km; ?></td>
             <td><?php echo $date; ?></td>
             <td><?php echo $dname; ?></td>
+            <td><?php echo $dphone; ?></td>
             <td class="accept">
                 <form action="./endtour.php" method="POST">
                     <input type="hidden" name="nid" value="<?php echo $nid;?>">
@@ -117,7 +120,6 @@
         <th scope="col">Trip Destination</th>
         <th scope="col">Name</th>
         <th scope="col">Gender</th>
-        <th scope="col">Phone</th>
         </tr>
     </thead>
     <tbody>
@@ -129,7 +131,6 @@
             $b2=mysqli_query($conn, $a2);
             $c2=$b2->fetch_assoc();
             $ogender=$c2['ugender'];
-            $ophone=$c2['uphone'];
             $oname=$c2['uname'];
             // if($date > $datetime_1) {
             ?>
@@ -139,7 +140,6 @@
             <td><?php echo $dest; ?></td>
             <td><?php echo $oname; ?></td>
             <td><?php echo $ogender; ?></td>
-            <td><?php echo $ophone; ?></td>
         </tr>
         <?php  } ?>
     </tbody>
