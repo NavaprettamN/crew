@@ -19,7 +19,7 @@
         $params=array(
             'token' => 'c4m65s5dw2dt5qpf',
             'to' => $dphone,
-            'body' => 'You got a humsafar for the trip. Accept the invitation.'
+            'body' => 'You got a humsafar ☺☺ for the trip. Accept the invitation.✅✅'
             );
             $curl = curl_init();
             curl_setopt_array($curl, array(
